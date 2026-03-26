@@ -46,8 +46,15 @@ def get_attempted(handle):
         sys.exit(1)
 
 def start_simulated_contest():
-    print("\n--- Initiating 2-Hour Mashup Generator ---")
-    ratings = [1200, 1300, random.choices([1400, 1500], weights=[0.8, 0.2])[0], random.choices([1500, 1600], weights=[0.8, 0.2])[0]]
+    print("\n--- Initiating 3-Problem Mashup Generator ---")
+    
+    # Updated Difficulty Curve with Probabilities
+    ratings = [
+        random.choices([1100, 1200], weights=[0.8, 0.2])[0], # 80% chance of 1100, 20% of 1200
+        random.choices([1200, 1300], weights=[0.8, 0.2])[0], # 80% chance of 1200, 20% of 1300
+        random.choices([1400, 1500], weights=[0.8, 0.2])[0]  # 80% chance of 1400, 20% of 1500
+    ]
+    
     attempted_ids, attempted_names = get_attempted(HANDLE)
     
     try:
@@ -93,23 +100,28 @@ def start_simulated_contest():
             chosen = random.choices(valid_problems, weights=weights, k=1)[0]
             selected.append(chosen)
 
-    if len(selected) < 4:
-        print("Warning: Could not find enough valid problems to fill the 4 slots. Try running again.")
+    # Updated safety check for 3 problems
+    if len(selected) < 3:
+        print("Warning: Could not find enough valid problems to fill the 3 slots. Try running again.")
 
     html = """
     <html><head><style>
-        body { font-family: -apple-system, sans-serif; background: #1e1e1e; color: #fff; max-width: 600px; margin: 50px auto; }
+        body { font-family: -apple-system, sans-serif; background: #1e1e1e; color: #fff; max-width: 650px; margin: 50px auto; }
         h2 { border-bottom: 2px solid #333; padding-bottom: 10px; }
-        a { display: block; background: #2d2d2d; padding: 15px; margin: 10px 0; border-radius: 8px; color: #61afef; text-decoration: none; font-weight: bold; font-size: 18px; transition: 0.2s;}
+        a { display: flex; justify-content: space-between; align-items: center; background: #2d2d2d; padding: 15px 20px; margin: 10px 0; border-radius: 8px; color: #61afef; text-decoration: none; font-weight: bold; font-size: 18px; transition: 0.2s;}
         a:hover { background: #3d3d3d; }
+        .meta { color: #888; font-size: 14px; font-weight: normal; }
     </style></head><body>
-    <h2>Codeforces Mashup (2 Hours)</h2>
+    <h2>Codeforces Mashup</h2>
     """
     
-    labels = ['A', 'B', 'C', 'D']
+    labels = ['A', 'B', 'C']
     for i, p in enumerate(selected):
         link = f"https://codeforces.com/contest/{p['contestId']}/problem/{p['index']}"
-        html += f"<a href='{link}' target='_blank'>Problem {labels[i]}</a>"
+        p_code = f"{p['contestId']}{p['index']}"
+        p_name = p.get('name', 'Unknown')
+        
+        html += f"<a href='{link}' target='_blank'><span>Problem {labels[i]}: {p_name}</span> <span class='meta'>{p_code}</span></a>"
     
     html += "</body></html>"
 
