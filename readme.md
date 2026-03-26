@@ -1,7 +1,3 @@
-Here is the updated `README.md` reflecting all the massive upgrades we just made: the scorched-earth blacklist, the dynamic file path, the UI improvements, the shift to a 3-problem mashup, and the pivot away from buggy macOS hotkeys. 
-
-***
-
 # Codeforces Automation Scripts
 
 This folder contains the Python scripts used to automate my Codeforces practice sessions. The goal of these scripts is to remove choice paralysis, enforce topic diversity, and prioritize the modern competitive programming meta.
@@ -68,7 +64,3 @@ When you trigger a simulation:
 1. **The Difficulty Curve:** It rolls a probability check for all 3 slots to keep the difficulty unpredictable within a defined range.
 2. **The Spread:** It takes the four main buckets, shuffles them, and deals exactly **one bucket to each problem slot**. 
     * *Result:* You will **never** get a contest with two Greedy problems. You are guaranteed 3 distinct concepts every single time, forcing you to practice a balanced skillset.
-
-***
-
-Would you like me to add a section detailing your specific timer scaling rules (e.g., 20 mins for 1300, +10 mins per 100 rating) to the README so you have it documented?
