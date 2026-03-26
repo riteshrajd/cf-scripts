@@ -3,10 +3,13 @@ import random
 import webbrowser
 import sys
 import warnings
+import os
+from dotenv import load_dotenv
 
 warnings.filterwarnings("ignore", category=UserWarning, module='urllib3')
 
-HANDLE = "your_handle"
+load_dotenv()
+HANDLE = os.getenv("CF_HANDLE")
 
 TAG_BUCKETS = {
     "Math/Constructive": ["math", "constructive algorithms", "number theory", "geometry"],
